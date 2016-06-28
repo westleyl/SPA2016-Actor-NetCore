@@ -10,6 +10,12 @@ This repository provides the presentation, and source code for the samples and t
 
 ----------
 
+This code was created with .NET Core 1.0.0 RC2.  If you compile with the RTM version you may need to edit the project.json file to use the correct values for the RTM version (use **dotnet new** in a folder to get a sample project.json file).
+
+When compiling the project, if there are library errors use **dotnet restore** at the command line.
+
+----------
+
 ## Abstract ##
 
 By using the Dataflow Library you can concentrate on the messages and actions being performed, while the blocks marshal the messages, provide concurrent message processing and buffering as well as supporting cancellation and exception handling.

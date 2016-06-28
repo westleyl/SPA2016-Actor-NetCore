@@ -68,6 +68,13 @@ namespace ActorsLifeForMe.MD5Folder
             Console.ReadLine();
         }
 
+        private static string MaxFilename(string filepath, int maxLength)
+        {
+            var filename = Path.GetFileName(filepath);
+            if (filename.Length > maxLength) { filename = filename.Substring(0, maxLength); }
+            return filename;
+        }
+
         private static IEnumerable<string> GetFolderContents(string folder)
         {
             return System.IO.Directory.GetFileSystemEntries(folder);
@@ -75,14 +82,14 @@ namespace ActorsLifeForMe.MD5Folder
 
         private static Tuple<string, string> MD5WithFilename(string filepath)
         {
-            Console.WriteLine("Begin for {0}", Path.GetFileName(filepath));
+            Console.WriteLine("Begin for {0}", MaxFilename(filepath, 30));
             Console.WriteLine(" ... and in folder {0}", Path.GetDirectoryName(filepath));
             var returnValue = new Tuple<string, string>(filepath, MD5FromFile(filepath));
 
             // cancel 'DURING PROCESS' rather than letting current Task within a block complete automatically
             // if (CancellationSource.IsCancellationRequested) throw new OperationCanceledException();
 
-            Console.WriteLine("MD5 completed for {0}", Path.GetFileName(filepath));
+            Console.WriteLine("MD5 completed for {0}", MaxFilename(filepath, 30));
             return returnValue;
         }
 

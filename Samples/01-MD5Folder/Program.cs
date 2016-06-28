@@ -24,10 +24,17 @@ namespace ActorsLifeForMe.MD5Folder
             var files = System.IO.Directory.GetFiles(folder);
             foreach (var filepath in files)
             {
-                Console.WriteLine("Begin {0} ", Path.GetFileName(filepath).Substring(0, 30));
-                Console.WriteLine("End {0} : {1}", Path.GetFileName(filepath).Substring(0, 30), MD5FromFile(filepath));
-				Console.WriteLine();
+                Console.WriteLine("Begin {0} ", MaxFilename(filepath, 30));
+                Console.WriteLine("End {0} : {1}", MaxFilename(filepath, 30), MD5FromFile(filepath));
+                Console.WriteLine();
             }
+        }
+
+        private static string MaxFilename(string filepath, int maxLength)
+        {
+            var filename = Path.GetFileName(filepath);
+            if (filename.Length > maxLength) { filename = filename.Substring(0, maxLength); }
+            return filename;
         }
 
         private static string MD5FromFile(string filename)

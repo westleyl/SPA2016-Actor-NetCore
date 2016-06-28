@@ -41,15 +41,22 @@ namespace ActorsLifeForMe.MD5Folder
             displayMD5Block.Completion.Wait();
         }
 
+        private static string MaxFilename(string filepath, int maxLength)
+        {
+            var filename = Path.GetFileName(filepath);
+            if (filename.Length > maxLength) { filename = filename.Substring(0, maxLength); }
+            return filename;
+        }
+
         private static Tuple<string,string> MD5WithFilename(string filepath)
         {
-            Console.WriteLine("Begin : {0} : thread {1}, task {2}", Path.GetFileName(filepath).Substring(0, 30), System.Threading.Thread.CurrentThread.ManagedThreadId, Task.CurrentId);
+            Console.WriteLine("Begin : {0} : thread {1}, task {2}", MaxFilename(filepath, 30), System.Threading.Thread.CurrentThread.ManagedThreadId, Task.CurrentId);
             return new Tuple<string, string>(filepath, MD5FromFile(filepath));
         }
 
         private static void DisplayMD5WithFilename(Tuple<string,string> filenameAndMD5)
         {
-            Console.WriteLine("End : {0} : {1}", Path.GetFileName(filenameAndMD5.Item1).Substring(0, 30), filenameAndMD5.Item2);
+            Console.WriteLine("End : {0} : {1}", MaxFilename(filenameAndMD5.Item1, 30), filenameAndMD5.Item2);
         }
 
         private static string MD5FromFile(string filename)
